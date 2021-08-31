@@ -1,0 +1,6 @@
+backend/.idea
+backend/vendor/
+backend/coverfile_out
+
+frontend/node_modules
+frontend/package-lock.json
