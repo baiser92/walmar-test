@@ -6,9 +6,11 @@ type Message struct {
 }
 
 type Product struct {
-	ID          int    `json:"id"`
-	Brand       string `json:"brand"`
-	Description string `json:"description"`
-	Image       string `json:"image"`
-	Price       int    `json:"price"`
+	ID            int    `json:"id"`
+	Brand         string `json:"brand"`
+	Description   string `json:"description"`
+	Image         string `json:"image"`
+	Price         int    `json:"price"`
+	DiscountPrice int    `json:"discountPrice"`
+	IsDiscount    bool   `json:"IsDiscount"`
 }

@@ -1,6 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 //import ClientAPI from '../../clients/ClientApi'
 import SearchBar from '../SearchBar'
+
+import ProductCard from '../ProductCard'
+
+import { Container } from './styled';
 
 import ClientAPI from '../../clients/ClientApi'
 class ProductList extends Component {
@@ -9,6 +13,7 @@ class ProductList extends Component {
         this.state = {
            products:[],
            query:""
+           
         }
      this.clientApi = new ClientAPI()
     }
@@ -32,6 +37,7 @@ class ProductList extends Component {
           
           const products = await this.clientApi.GetProduct()
           console.log(products)
+          this.setState({ products: products })
           
         } catch (error) {
           alert(error)
@@ -46,17 +52,35 @@ class ProductList extends Component {
     }
 
 
-
-  
-
-
-
     render() {
-        
+        const { products } = this.state
         return (
+             
+        <Fragment>
+                <Container>  
+                <div className="header compact">
+                    <div className="header-W">
+                        <div className="logo">
+                            <a href="/catalogo/"><img alt="Lider Logo" src="/assets/images/logo.svg"/></a>
+                        </div> 
+                        <section>
+                        <SearchBar handleText={this.searchProduct}></SearchBar> 
+                        </section>
+                    </div>
+                </div>
+               
+                <div className="right-container"> {
+                        products.map((product) =>  <ProductCard key={product.id} product={product}> </ProductCard> )
+                    }</div> 
 
+               
+                </Container>
+            </Fragment>
             
-           <SearchBar handleText={this.searchProduct}></SearchBar>
+
+
+
+
         )
     }
 }
