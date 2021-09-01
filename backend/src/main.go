@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -20,19 +21,20 @@ func main() {
 	if len(strings.TrimSpace(port)) == 0 {
 		port = ":5000"
 	}
+	ctx := context.Background()
+	repo, client := repository.NewMongoRepository(ctx)
+	defer client.Disconnect(ctx)
 
-	repo := repository.NewRepository()
 	ctrl := controller.NewController(repo)
-	http_server := httpServer.NewHTTPServer(ctrl)
+	http_server := httpServer.NewHTTPServer(ctrl, ctx)
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.Use(commonMiddleware)
 	router.HandleFunc("/health", http_server.Health)
-	router.HandleFunc("/getAll", http_server.GetAll)
+	router.HandleFunc("/getAll/{value}", http_server.GetAll)
 
 	credentials := handlers.AllowCredentials()
 	methods := handlers.AllowedMethods([]string{"POST", "GET", "PUT", "DELETE"})
-	// ttl := handlers.MaxAge(3600)
 	origins := handlers.AllowedMethods([]string{"*"})
 
 	fmt.Printf("server runing in port %v", port)

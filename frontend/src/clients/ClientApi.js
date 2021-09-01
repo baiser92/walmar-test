@@ -23,13 +23,12 @@ export default class ClientAPI {
 
 
 
-      GetProduct(/*data*/) {
+      GetProduct(value) {
         return new Promise(async (resolve, reject) => {
           const client = await this.apiClientInstance()
           client.request({
-            url: 'getAll',
-            method: 'post',
-            //data
+            url:`getAll/${value}`,
+            method: 'get',
           }).then((response) => {
             resolve(response.data)
           }).catch((error) => {
