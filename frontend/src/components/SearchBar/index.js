@@ -7,9 +7,9 @@ class SearchBar extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            text: "",
             submitDisabled:true,
-           
-            
+             
          }
     } 
     handleChange = (e) => {

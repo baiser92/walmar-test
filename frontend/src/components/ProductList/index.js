@@ -20,22 +20,13 @@ class ProductList extends Component {
 
     
     async componentDidMount() {
-       /*  try {
-            this.setState({ loading: true }, async () => {
-                const menu = await this.clientApi.getMenuForToday()
-                this.setState({ menu: menu, loading: false })
-            })
-        } catch (error) {
-            console.log(error)
-            alert(error)
-        } */
-
+     
     }
 
-     getProducts = async () => {
+     getProducts = async (query) => {
         try {
           
-          const products = await this.clientApi.GetProduct()
+          const products = await this.clientApi.GetProduct(query)
           console.log(products)
           this.setState({ products: products })
           
@@ -45,42 +36,37 @@ class ProductList extends Component {
       }  
 
 
-    searchProduct =  async (query) => {
-        this.setState({ query: query })
-        await this.getProducts()
-        
+    searchProduct =  async (texto) => { 
+        await this.getProducts(texto)
     }
 
 
     render() {
         const { products } = this.state
         return (
-             
-        <Fragment>
+            <Fragment>
                 <Container>  
-                <div className="header compact">
-                    <div className="header-W">
-                        <div className="logo">
-                            <a href="/catalogo/"><img alt="Lider Logo" src="/assets/images/logo.svg"/></a>
-                        </div> 
-                        <section>
-                        <SearchBar handleText={this.searchProduct}></SearchBar> 
-                        </section>
+                    <div className="header compact">
+                        <div className="header-W">
+                            <div className="logo">
+                                <a href="/catalogo/"><img alt="Lider Logo" src="/assets/images/logo.svg"/></a>
+                            </div> 
+                            <section>
+                            <SearchBar handleText={this.searchProduct}></SearchBar> 
+                            </section>
+                        </div>
                     </div>
-                </div>
-               
-                <div className="right-container"> {
-                        products.map((product) =>  <ProductCard key={product.id} product={product}> </ProductCard> )
-                    }</div> 
+                
+                    <div className="right-container"> 
+                    
+                    {products ?  products.map((product) =>  <ProductCard key={product.id} product={product}> </ProductCard> )
 
-               
+
+                    : <div> NO EXISTEN PRODUCTOS</div>}
+                
+                    </div> 
                 </Container>
             </Fragment>
-            
-
-
-
-
         )
     }
 }
