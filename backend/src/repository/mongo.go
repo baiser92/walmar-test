@@ -53,11 +53,11 @@ func (r *mongoRepository) ReadAll(query string, ctx context.Context) ([]*entity.
 func getDBConnection() (string, string, string, string) {
 	usr := os.Getenv("DB_USER")
 	if len(strings.TrimSpace(usr)) == 0 {
-		usr = "productListUser"
+		usr = "user"
 	}
 	pwd := os.Getenv("DB_PWD")
 	if len(strings.TrimSpace(pwd)) == 0 {
-		pwd = "productListPassword"
+		pwd = "pwd"
 	}
 	host := os.Getenv("DB_HOST")
 	if len(strings.TrimSpace(host)) == 0 {

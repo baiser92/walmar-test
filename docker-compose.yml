@@ -1,0 +1,48 @@
+# docker-compose.yml
+
+version: "3.2"
+services:
+
+  mongodb:
+    image: mongo:4.1.8-xenial
+    ports:
+      - "27017:27017"
+    container_name: db
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=productListUser
+      - MONGO_INITDB_ROOT_PASSWORD=productListPassword
+
+  mongo-seed:
+    build: ./mongo-seed
+    links:
+      - mongodb
+
+  backend:
+    build: ./backend
+    tty: true
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_USER=productListUser
+      - DB_PWD=productListPassword
+      - DB_HOST=mongodb
+    volumes:
+      - "./backend:/backend"
+    links:
+      - mongodb
+
+  frontend:
+    build: ./frontend
+    tty: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./frontend:/frontend"
+    links:
+      - backend
+
+# Host volumes used to store code.
+volumes:
+  backend:
+  frontend:
