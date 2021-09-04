@@ -4,7 +4,7 @@ import SearchBar from '../SearchBar'
 
 import ProductCard from '../ProductCard'
 
-import { Container } from './styled';
+import { Container, ContainerError } from './styled';
 
 import ClientAPI from '../../clients/ClientApi'
 class ProductList extends Component {
@@ -37,12 +37,13 @@ class ProductList extends Component {
 
 
     searchProduct =  async (texto) => { 
+        this.setState({ query: texto })
         await this.getProducts(texto)
     }
 
 
     render() {
-        const { products } = this.state
+        const { products, query } = this.state
         return (
             <Fragment>
                 <Container>  
@@ -57,14 +58,19 @@ class ProductList extends Component {
                         </div>
                     </div>
                 
+                    {products ? 
+                   
                     <div className="right-container"> 
-                    
-                    {products ?  products.map((product) =>  <ProductCard key={product.id} product={product}> </ProductCard> )
-
-
-                    : <div> NO EXISTEN PRODUCTOS</div>}
-                
+                     
+                        { products.map((product) =>  <ProductCard key={product.id} product={product}> </ProductCard> ) }
                     </div> 
+                    
+                    :  
+                    <ContainerError>
+                        <span> No existen resultados con la busqueda: <strong> " {query} "</strong>  </span> 
+                    </ContainerError>
+                    }
+                    
                 </Container>
             </Fragment>
         )

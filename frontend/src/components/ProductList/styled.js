@@ -62,3 +62,14 @@ section{
 
 
 `
+
+
+
+export const ContainerError = styled.div` 
+    position: absolute;
+    margin-top: 150px;
+`
+
+
+
+
