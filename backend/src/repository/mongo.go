@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 	"walmar-test-api/walmart-golang-api/src/entity"
 
@@ -20,22 +21,25 @@ type mongoRepository struct {
 }
 
 // ReadAll get all products from DB
-func (r *mongoRepository) ReadAll(value string, ctx context.Context) ([]*entity.Product, error) {
+func (r *mongoRepository) ReadAll(query string, ctx context.Context) ([]*entity.Product, error) {
 	var products []*entity.Product
+
+	intQuery, _ := strconv.Atoi(query)
 	collection := r.db.Collection("products")
 	orQuery := []bson.D{}
-	idFindQuery := bson.M{"id": value}
-	brandFindQuery := bson.D{{"brand", primitive.Regex{Pattern: value, Options: ""}}}
-	descriptionFindQuery := bson.D{{"description", primitive.Regex{Pattern: value, Options: ""}}}
-	orQuery = append(orQuery, brandFindQuery, descriptionFindQuery)
+	idQuery := bson.M{"id": intQuery}
+	brandQuery := bson.D{{"brand", primitive.Regex{Pattern: query, Options: ""}}}
+	descriptionQuery := bson.D{{"description", primitive.Regex{Pattern: query, Options: ""}}}
+	orQuery = append(orQuery, brandQuery, descriptionQuery)
 	orqueryM := []bson.M{}
 	machQuery := bson.M{"$or": orQuery}
-	orqueryM = append(orqueryM, idFindQuery, machQuery)
+	orqueryM = append(orqueryM, idQuery, machQuery)
 	filter := bson.M{"$or": orqueryM}
 	cursor, err := collection.Find(ctx, filter)
 	if err != nil {
 		return nil, err
 	}
+	defer cursor.Close(ctx)
 
 	err = cursor.All(ctx, &products)
 	if err != nil {

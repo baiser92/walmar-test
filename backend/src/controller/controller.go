@@ -32,7 +32,7 @@ func (s *controller) ReadAll(value string, ctx context.Context) ([]*entity.Produ
 	return products, nil
 }
 
-//IsPalindrome function validate is Palindrome
+//isPalindrome function return  if work is a Palindrome
 func isPalindrome(input string) bool {
 	for i := 0; i < len(input)/2; i++ {
 		if input[i] != input[len(input)-i-1] {
@@ -42,6 +42,7 @@ func isPalindrome(input string) bool {
 	return true
 }
 
+//getDiscount updates the prices of the producto whith  a 50% descount
 func getDiscount(products []*entity.Product) []*entity.Product {
 
 	for _, product := range products {
