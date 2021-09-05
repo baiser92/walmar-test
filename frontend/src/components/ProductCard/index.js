@@ -28,11 +28,11 @@ class ProductCard extends Component {
                 </div>
                 <div className="walmart-sales-price d-flex" >
                     ${product.price}  
-                    {product.IsDiscount ? <div className="walmart-discount-percentage-card">50%</div>  : null}
+                    {product.IsDiscount ? <div  id="discount-porcentaje" className="walmart-discount-percentage-card">50%</div>  : null}
                 </div>
 
                 {product.IsDiscount ?  <div  className="d-flex">
-                    <span className="walmart-reference-price">{product.discountPrice}
+                    <span id="discount-price" className="walmart-reference-price">{product.discountPrice}
                     </span>
                 </div>  : null}
 
