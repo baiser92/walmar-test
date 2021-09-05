@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-//import ClientAPI from '../../clients/ClientApi'
+
 import SearchBar from '../SearchBar'
 
 import ProductCard from '../ProductCard'
@@ -20,11 +20,8 @@ class ProductList extends Component {
 
   getProducts = async (query) => {
     try {
-      
       const products = await this.clientApi.GetProduct(query)
-      console.log(products)
       this.setState({ products: products })
-      
     } catch (error) {
       alert(error)
     }
@@ -56,7 +53,7 @@ class ProductList extends Component {
           {
             products ? 
             
-            <div className="right-container"> 
+            <div  id="container-products" className="right-container"> 
               
                 { products.map((product) =>  <ProductCard key={product.id} product={product}> </ProductCard> ) }
             </div> 

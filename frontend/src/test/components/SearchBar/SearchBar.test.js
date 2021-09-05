@@ -74,7 +74,4 @@ describe('SearchBar component test', () => {
        searchBarComponent.find(Input).simulate('change', event)
        expect(searchBarComponent.instance().state.submitDisabled).toBeTruthy()
      })
-
-
-
 })
