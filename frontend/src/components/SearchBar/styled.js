@@ -27,7 +27,7 @@ export const Input = styled.input`
     }
   }
 
-`;
+`
 
 export const StyledInput = styled.div`
   &.inputWithIcon {
@@ -57,4 +57,4 @@ export const StyledInput = styled.div`
       transition: 0.3s;
     }
   }
-`;
+`
