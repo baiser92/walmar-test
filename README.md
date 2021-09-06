@@ -12,7 +12,9 @@
 
 #Fronted
 
-- Run test : npm run test
+- Run test : 
+-  cd frontend 
+-  npm run test
 
 
 -To be able to carry out a search, you must click on the search button 
