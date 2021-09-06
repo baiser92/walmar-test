@@ -8,7 +8,6 @@ services:
     ports:
       - "27017:27017"
     container_name: db
-    restart: unless-stopped
     environment:
       - MONGO_INITDB_ROOT_USERNAME=productListUser
       - MONGO_INITDB_ROOT_PASSWORD=productListPassword

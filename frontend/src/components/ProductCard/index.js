@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 
 import { Card } from './styled';
 
@@ -15,7 +15,7 @@ class ProductCard extends Component {
                 <div className="d-flex labels-container"></div>
                 <div className="d-flex cyber-lider-cards-container"></div>
                 <div id="image" className="bg-white">
-                    <img id="lazy-img" className="img-hover-zoom img-fluid m-auto" src={"https://"+product.image} ></img>
+                    <img id="lazy-img" alt="product" className="img-hover-zoom img-fluid m-auto" src={"https://"+product.image} ></img>
                 </div>
               </div>
             </div>
